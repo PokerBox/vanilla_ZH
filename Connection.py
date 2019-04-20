@@ -87,8 +87,8 @@ class SerialThread(threading.Thread):
             currentTime = time.time()
             runTime = currentTime - start_time
             waitTime = 1./self.fps - runTime
-            if self.debug and False:
-                #print('- Filter FPS: %.2f' % (1.0/runTime))
+            # if self.debug and False:
+            #     print('- Filter FPS: %.2f' % (1.0/runTime))
             if(waitTime > 0):
                 time.sleep(waitTime)
 
