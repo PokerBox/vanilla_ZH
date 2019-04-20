@@ -65,22 +65,23 @@ class SerialThread(threading.Thread):
     def run(self):
         count_plot = 0
         while(True):
-        
+
             start_time = time.time()
-            
+
             # _, _ = self.filter.getPredictionAbsolute(13)
-            
+
             if self.connect:
                 self.sendMessage()
                 if self.recvTh != None:
                     self.yaw = self.recvTh.yaw
                     self.pitch = self.recvTh.pitch
-                
+
             if count_plot >= 100:
                 count_plot = 0
                 if self.debug:
                     print('Send: %d %d Raw: %d %d Recieve: %d %d' % (
-                        self.send_x, self.send_y, self.x, self.y, self.yaw, self.pitch))
+                        self.send_
+                        x, self.send_y, self.x, self.y, self.yaw, self.pitch))
 
             count_plot += 1
 
@@ -88,10 +89,10 @@ class SerialThread(threading.Thread):
             runTime = currentTime - start_time
             waitTime = 1./self.fps - runTime
             if self.debug and False:
-                print('- Filter FPS: %.2f' % (1.0/runTime))
+                #print('- Filter FPS: %.2f' % (1.0/runTime))
             if(waitTime > 0):
                 time.sleep(waitTime)
-            
+
 
 class RecieveThread(threading.Thread):
     def __init__(self, port):
@@ -124,10 +125,11 @@ class RecieveThread(threading.Thread):
             self.pitch = self.hexToNumArray(frame.data)[0]
             self.pitch = self.pitch - 2550
             self.pitch = self.pitch * 3600 / 8192
-    
+
     def run(self):
         while(True):
             self.recvMessage()
+
 
 if __name__ == '__main__':
     from can.interfaces import slcan
