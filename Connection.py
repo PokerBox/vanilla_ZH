@@ -80,8 +80,7 @@ class SerialThread(threading.Thread):
                 count_plot = 0
                 if self.debug:
                     print('Send: %d %d Raw: %d %d Recieve: %d %d' % (
-                        self.send_
-                        x, self.send_y, self.x, self.y, self.yaw, self.pitch))
+                        self.send_x, self.send_y, self.x, self.y, self.yaw, self.pitch))
 
             count_plot += 1
 
