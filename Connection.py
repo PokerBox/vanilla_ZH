@@ -47,10 +47,10 @@ class SerialThread(threading.Thread):
         x_num = self.x + 900
         y_num = self.y + 300
 
-        if(x_num >= 1800 or x_num <= 0 or not self.validate):
-            x_num = 900
-        if(y_num >= 500 or y_num <= 0 or not self.validate):
-            y_num = 300
+        # if(x_num >= 1800 or x_num <= 0 or not self.validate):
+        #     x_num = 900
+        # if(y_num >= 500 or y_num <= 0 or not self.validate):
+        #     y_num = 300
 
         self.send_x = int(x_num)
         self.send_y = int(y_num)
