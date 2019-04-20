@@ -237,7 +237,6 @@ def YoloInit():
         except Exception:
             pass
 
-import time
 
 def StartYoloDetection(cap, tracker, cvth, serial, debug=False, thresh=0.10):
     lastID = 0
@@ -251,7 +250,7 @@ def StartYoloDetection(cap, tracker, cvth, serial, debug=False, thresh=0.10):
         frame_resized = cv2.resize(frame_read,
                                    (lib.network_width(netMain),
                                     lib.network_height(netMain)),
-                                    interpolation=cv2.INTER_LINEAR)
+                                   interpolation=cv2.INTER_LINEAR)
         detections = detect(netMain, metaMain, frame_resized, thresh=thresh)
         # time.sleep(0.15)
         tracker.update(detections)
@@ -268,7 +267,8 @@ def StartYoloDetection(cap, tracker, cvth, serial, debug=False, thresh=0.10):
             xmin, ymin, xmax, ymax = bbox
             w_half = int((xmax-xmin)/2) * xratio
             h_half = int((ymax-ymin)/2) * yratio
-            bbox_cvh = (xmin* xratio, ymin* yratio, (xmax-xmin)* xratio, (ymax-ymin)* yratio)
+            bbox_cvh = (xmin * xratio, ymin * yratio, (xmax-xmin)
+                        * xratio, (ymax-ymin) * yratio)
             bbox = (xmin, ymin, xmax-xmin, ymax-ymin)
             detections.append((label, 1., bbox))
             rank.append((objID, (cx-w_half, cy-h_half), bbox_cvh))
@@ -284,21 +284,26 @@ def StartYoloDetection(cap, tracker, cvth, serial, debug=False, thresh=0.10):
                 count = 0
                 lastID = randID
 
-                # Clean filter and cvth 
+                # Clean filter and cvth
                 serial.filter = ObjectPredictor()
                 serial.validate = False
                 # cvth.clear()
-                
+
             else:
                 # print('YOLO UPDATE CVTRACKER count: ', count, ' validate: ', serial.validate)
 
                 serial.validate = True
-                
+
                 # cvth.restart()
                 # cvth.updateByNN(frame_read, bbox)
 
-                x = math.atan((pix_x - 740/2) / 693.3) * 1800 / math.pi
-                y = math.atan((pix_y - 416/2) / 693.3) * 1800 / math.pi
+                # Old calibration
+                # x = math.atan((pix_x - 740/2) / 693.3) * 1800 / math.pi
+                # y = math.atan((pix_y - 416/2) / 693.3) * 1800 / math.pi
+
+                # New calibration
+                x = math.atan((pix_x - 740/2) / 475.3) * 1800 / math.pi
+                y = math.atan((pix_y - 416/2) / 475.3) * 1800 / math.pi
 
                 # serial.filter.updateSensorAbsolute(x, 0, yaw, 0)
 
@@ -311,13 +316,12 @@ def StartYoloDetection(cap, tracker, cvth, serial, debug=False, thresh=0.10):
             serial.filter = ObjectPredictor()
             serial.validate = False
             # cvth.clear()
-            
 
         if debug:
             frame_read = cvDrawBoxesWithNames(
                 detections, frame_read, cap, text=True)
             cv2.imshow('video', frame_read)
-            print('FPS: %.2f' % (1.0/(time.time()-prev_time)))
+            #print('FPS: %.2f' % (1.0/(time.time()-prev_time)))
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
