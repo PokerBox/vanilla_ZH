@@ -302,7 +302,7 @@ def StartYoloDetection(cap, tracker, cvth, serial, debug=False, thresh=0.10):
                 # y = math.atan((pix_y - 416/2) / 693.3) * 1800 / math.pi
 
                 # New calibration
-                x = math.atan((pix_x*xratio - 740/2) / 475.3) * 1800 / math.pi
+                x = math.atan((pix_x - 740/2) / 475.3) * 1800 / math.pi
                 print('calx:', pix_x)
                 y = math.atan((pix_y - 416/2) / 475.3) * 1800 / math.pi
                 print('caly:', pix_y)
