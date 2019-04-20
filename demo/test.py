@@ -1,0 +1,16 @@
+import numpy as np
+import cv2
+frame=np.zeros((200,200,3))
+#print(frame)
+hsvValue=np.uint8([[[0,255,255]]])
+print(hsvValue)
+rgbColor=cv2.cvtColor(hsvValue, cv2.COLOR_HSV2BGR)
+print(rgbColor)
+print(frame.shape)
+print(tuple(map(tuple, rgbColor)))
+rgbTuple=(int(rgbColor[0][0][0]),int(rgbColor[0][0][1]),int(rgbColor[0][0][2]))
+print(rgbTuple)
+cv2.circle(frame,(100,100),50,rgbTuple,5)
+f1=np.where(x)
+cv2.imshow('test',frame[:100,:100,:])
+cv2.waitKey(0)

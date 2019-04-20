@@ -1,0 +1,5 @@
+classes = 3
+train = ./darknet/dataset/train_list.txt
+valid = ./darknet/dataset/val_list.txt
+names = ./darknet/data/obj.names
+backup = ./darknet/data/backup
